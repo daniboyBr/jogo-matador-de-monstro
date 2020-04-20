@@ -64,7 +64,7 @@
                         <button type="button" class="btn btn-secondary btn-sm" @click="desistir">DESISTIR</button>
                     </div>
                 </div>
-                <div class="card mt-2" v-show="startGame">
+                <div class="card mt-2" v-show="logs.length != 0">
                     <div class="card-body text-center">
                         <div v-for="log in logs">
                             <p class="bg-danger">MOSTRO {{log.msgMonstro}}</p>
