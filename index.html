@@ -1,149 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-
+    <title>Projeto Matador de Monstro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
 </head>
 
 <body>
-    <div id="app-monstro" class="container-fluid">
-        <h1>{{title}}</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="text-center">Jogador</p>
-                        <div class="progress">
-                            <div class="progress-bar bg-success"
-                                :class="[(jogador.hp <= 20 )? 'bg-danger':'bg-success']" role="progressbar"
-                                :style="{'width': jogador.hp +'%' }" aria-valuenow="25" aria-valuemin="0"
-                                aria-valuemax="100">{{jogador.hp}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="text-center">Monstro</p>
-                        <div class="progress">
-                            <div class="progress-bar bg-success"
-                                :class="[(monstro.hp <= 20 )? 'bg-danger':'bg-success', ]" role="progressbar"
-                                :style="{'width': monstro.hp +'%' }" aria-valuenow="25" aria-valuemin="0"
-                                aria-valuemax="100">{{monstro.hp}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <div class="card" v-show="!startGame">
-                    <div class="card-body text-center">
-                        <button type="button" class="btn btn-info btn-sm" @click="iniciarJogo">INICIAR NOVO
-                            JOGO</button>
-                    </div>
-                </div>
-                <div class="card" v-show="startGame">
-                    <div class="card-body text-center">
-                        <button type="button" class="btn btn-danger btn-sm" @click="atacar">ATAQUE</button>
-                        <button type="button" class="btn btn-warning btn-sm" @click="atacarEspecial">ATAQUE
-                            ESPECIAL</button>
-                        <button type="button" class="btn btn-success btn-sm" @click="cura">CURAR</button>
-                        <button type="button" class="btn btn-secondary btn-sm" @click="desistir">DESISTIR</button>
-                    </div>
-                </div>
-                <div class="card mt-2" v-show="startGame">
-                    <div class="card-body text-center">
-                        <div v-for="log in logs">
-                            <p class="bg-danger">MOSTRO {{log.msgMonstro}}</p>
-                            <p class="bg-primary">JOGADOR {{log.msgJogador}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div id="app">
+        <div class="panel scores">1</div>
+        <div class="panel result">2</div>
+        <div class="panel buttons">3</div>
+        <div class="panel logs">4</div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
-
-
-    <script>
-        new Vue({
-            el: '#app-monstro',
-            data() {
-                return {
-                    title: 'Jodo do Monstro',
-                    startGame: false,
-                    monstro: {
-                        hp: 100,
-                        ataque: 2,
-                        logColor: 'danger'
-                    },
-                    jogador: {
-                        hp: 100,
-                        ataque: 1,
-                        ataquePlus: 3,
-                        curar: 1,
-                        logColor: 'success'
-                    },
-                    logs: []
-                }
-            },
-            methods: {
-                iniciarJogo(iniciarJogo = true) {
-                    this.startGame = iniciarJogo;
-                    this.monstro.hp = 100;
-                    this.jogador.hp = 100;
-                    this.logs = [];
-                },
-                desistir() {
-                    this.iniciarJogo(false);
-                },
-                atacar() {
-                    this.monstro.hp -= this.jogador.ataque;
-                    this.jogador.hp -= this.monstro.ataque;
-
-                    this.logs.unshift({
-                        msgJogador: 'ATINGIU MONSTRO COM ' + this.jogador.ataque,
-                        msgMonstro: 'ATINGIU JOGADOR COM ' + this.monstro.ataque,
-                    });
-                },
-                atacarEspecial() {
-                    this.monstro.hp -= this.jogador.ataquePlus;
-                    this.jogador.hp -= this.monstro.ataque;
-
-                    this.logs.unshift({
-                        msgJogador: 'ATINGIU MONSTRO COM ' + this.jogador.ataqueEspecial,
-                        msgMonstro: 'ATINGIU JOGADOR COM ' + this.monstro.ataque,
-                    });
-                },
-                cura() {
-                    this.jogador.hp += this.jogador.curar;
-                    this.jogador.hp -= this.monstro.ataque;
-                    this.logs.unshift({
-                        msgJogador: 'GANHOU FORÇA ' + this.jogador.curar,
-                        msgMonstro: 'ATINGIU JOGADOR COM ' + this.monstro.ataque,
-                    });
-                }
-            },
-        })
-    </script>
+    <script src="app.js"></script>
 </body>
 
 </html>
