@@ -1,14 +1,14 @@
-Projeto Matador de Monstro
+# Projeto Matador de Monstro
 
--Tecnologias:
-    Html,CSS,VueJs
+## Tecnologias:
+    *Html,CSS,VueJs
 
--Objetivo:
-    Aplicar os conhecimentos adquiridos na primeira parte do
+## Objetivo:
+    *Aplicar os conhecimentos adquiridos na primeira parte do
     curso "Curso Vue JS 2 - O Guia Completo (incl. Vue Router & Vuex)" da udemy, 
     do Leonardo Moura Leitao.
 
--Regras do Jogo:
+## Regras do Jogo:
     * Monstro e Jogador ter uma barra de vida que vai de 0 a 100
     * O Jogador ter 4 ações atacar, atacar especial, curar e desistir
     * O Jogador ao atacar o monstro ele tambem receber dano.
